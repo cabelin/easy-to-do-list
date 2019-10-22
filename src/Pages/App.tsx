@@ -1,26 +1,33 @@
-import React from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
+import { ThemeProvider } from 'styled-components';
 
-import logo from '~/Assets/logo.svg';
-import './App.css';
+import { MyGlobalStyle } from '~/Assets/Theme/Global.style';
+import { myTheme } from '~/Assets/Theme';
+import { Header } from './Header';
+import { Main } from './Main';
+import { TaskContext, tasks as initialTasks, taskIds as initialTaskIds } from './taskContext';
 
 function App() {
+  const [tasks] = useState(initialTasks);
+  const [taskIds] = useState(initialTaskIds);
+  const getTaskById = useCallback((taskId: string) => tasks[taskId], [tasks]);
+
+  const taskValue = useMemo(
+    () => ({
+      tasks,
+      taskIds,
+      getTaskById,
+    }),
+    [tasks, taskIds, getTaskById],
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={myTheme}>
+      <TaskContext.Provider value={taskValue}>
+        <MyGlobalStyle />
+        <Header />
+        <Main />
+      </TaskContext.Provider>
+    </ThemeProvider>
   );
 }
 
