@@ -13,10 +13,10 @@ function TodoItem({ taskId }: Props) {
   if (!task) {
     return null;
   }
-  const { text } = task;
+  const { description } = task;
   return (
     <Container>
-      <Text>{text}</Text>
+      <Text>{description}</Text>
     </Container>
   );
 }

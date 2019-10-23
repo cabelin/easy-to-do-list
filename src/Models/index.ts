@@ -1,6 +1,6 @@
 export interface Task {
-  id: string;
-  text: string;
+  id?: string;
+  description: string;
 }
 
 export interface TaskMap {
