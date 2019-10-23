@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { Container, Text } from './styles';
-import { TaskContext } from '~/Pages/taskContext';
+import { TaskContext } from '~/Contexts/taskContext';
 
 interface Props {
   taskId: string;
